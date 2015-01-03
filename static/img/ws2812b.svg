@@ -16,6 +16,8 @@
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="ws2812b.svg">
+  <title
+     id="title3012">WS2812B</title>
   <defs
      id="defs4">
     <linearGradient
@@ -65,17 +67,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="-81.785336"
-     inkscape:cy="199.55808"
+     inkscape:zoom="1.4"
+     inkscape:cx="173.71051"
+     inkscape:cy="235.50829"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1879"
-     inkscape:window-height="1056"
-     inkscape:window-x="41"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="751"
+     inkscape:window-height="383"
+     inkscape:window-x="1920"
+     inkscape:window-y="697"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -84,8 +86,38 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>WS2812B</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Rikard Lindström</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:description />
+        <dc:rights>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+        <dc:source>http://slashhome.se/p/svg-art/#ws2812b</dc:source>
+        <dc:date>2014</dc:date>
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <g
