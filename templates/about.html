@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% set title = "About" %}
+{% set active_page = "about" %}
+
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="fa fa-github fa-4x"></div>
+		<p>
+			Get the source on github:
+		</p>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+    	<div class="fa fa-code fa-4x"></div>
+		<p>
+			Written in <a target="_blank" href="https://www.python.org/">Python</a> using <a target="_blank" href="http://flask.pocoo.org/">Flask</a>, <a target="_blank" href="http://jquery.com/">jQuery</a> and <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>. Symbols from <a target="_blank" href="http://fortawesome.github.io/Font-Awesome/">Font Awsome</a>. Art created in <a target="_blank" href="https://inkscape.org/">Inkscape</a>.
+		</p>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="fa fa-legal fa-4x"></div>
+		<p>
+			&copy;2014, 2015 Rikard Lindström &lt;<a href="mailto:ornotermes@gmail.com">ornotermes@gmail.com</a>&gt;<br>
+			<br>
+			This program is free software: you can redistribute it and/or modify
+			the Free Software Foundation, either version 3 of the License, or
+			(at your option) any later version.<br>
+			<br>
+			This program is distributed in the hope that it will be useful,
+			but WITHOUT ANY WARRANTY; without even the implied warranty of
+			MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+			GNU General Public License for more details.
+			You should have received a copy of the GNU General Public License
+			along with this program.  If not, see &lt;<a target="_blank" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.
+		</p>
+	</div>
+</div>
+{% endblock %}

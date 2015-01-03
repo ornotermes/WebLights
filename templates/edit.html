@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% set title = "Editing " + effect %}
+
+{% block content %}
+<nav class="edit-menu">
+		<div class="btn-group" role="group" aria-label="...">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					{{ effect }} <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li{% if not logedin %} class="disabled"{% endif %}><a onclick="
+						var name = prompt('Save effect As...','New Effect');
+						if (name)
+						{
+							$.get('/edit/' + name + '/exist/', function(data){
+								if (data == '1')
+								{
+									if (confirm('Effect already exist, overwite?')) data = '0';
+								}
+								if (data == '0')
+								{
+									$.post( $SCRIPT_ROOT + '/edit/' + name + '/save/', { data: editor.getValue() }, function( data ){
+										window.location.href = '/edit/' + name;
+									});
+								}
+							});
+						}
+					"><span class="fa fa-save 5fa-lg"></span> Save As...</a></li>
+					<li{% if not logedin %} class="disabled"{% endif %}><a onclick="
+						matchstring = 'Delete {{ effect }} permanently.'
+						var response = prompt('Type \'' + matchstring + '\' to confirm.', '');
+						if (matchstring == response)
+						{
+							window.location.href = '/edit/{{ effect }}/delete/';
+						}
+					"><span class="fa fa-trash fa-lg"></span> Delete...</a></li>
+				</ul>
+			</div>
+			
+			<button type="button" id="save" class="btn btn-default{% if not logedin %} disabled{% endif %}" onclick="
+				$.post( $SCRIPT_ROOT + '/edit/{{ effect }}/save/', { data: editor.getValue() }, function( data ){
+					if (data == 'Saved') saved(true);	
+					getRunning();
+				});
+			"><span class="fa fa-save fa-lg"></span></button>
+			<button type="button" class="btn btn-default{% if not logedin %} disabled{% endif %}" onclick="
+				$.get('/run/{{ effect }}', function( data ){
+					getRunning();
+				});
+			"><span class="fa fa-play fa-lg"></span></button>
+			<button type="button" class="btn btn-default{% if not logedin %} disabled{% endif %}" onclick="
+				$.get('/stop/', function( data ){
+					getRunning();
+				});
+			"><span class="fa fa-stop fa-lg"></span></button>
+			<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#effect-config" id="config-button">
+				<span class="fa fa-wrench fa-lg"></span>
+			</button>
+			<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#search-div"><span class="fa fa-search fa-lg"></button>
+		</div>
+</nav>
+
+<div id="effect-config" class="panel panel-default collapse">
+	<div class="panel-heading">Effect config</div>
+	<div class="panel-body">
+		<div id="effect-config-form"></div>
+		<div class="btn-group pull-right" role="group" aria-label="...">
+			<button type="button" class="btn btn-info{% if not logedin %} disabled{% endif %}" onclick="
+				$.get( $SCRIPT_ROOT + '/config/save/' );
+			"><span style="padding: 0 24px" class="fa fa-save fa-lg"></span></button>
+			<button type="button" class="btn btn-warning{% if not logedin %} disabled{% endif %}" onclick="
+				$.get( $SCRIPT_ROOT + '/config/delete/' );
+			"><span class="fa fa-undo fa-lg"></span></button>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default collapse" id="search-div">
+	<div class="panel-heading">
+		<h3 class="panel-title">Search and replace</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" id="searchString" placeholder="Search for...">
+					<span class="input-group-addon">
+						<input type="checkbox" id="case" aria-label="RegExp">Case sensitive
+						<input type="checkbox" id="regexp" aria-label="RegExp">RegExp
+						<input type="checkbox" id="reverse" aria-label="RegExp">Reverse
+					</span>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="
+							editor.find(document.getElementById('searchString').value,{
+								caseSensitive: document.getElementById('case').checked,
+								regExp: document.getElementById('regexp').checked,
+								backwards: document.getElementById('reverse').checked,
+								wrap: true,
+							});">Find</button>
+					</span>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+		<br>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" id="replaceString" placeholder="Replace with...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="
+							editor.find(document.getElementById('searchString').value)
+							editor.replace(document.getElementById('replaceString').value);
+						">Replace</button>
+						<button class="btn btn-default" type="button" onclick="
+							editor.find(document.getElementById('searchString').value,{
+								caseSensitive: document.getElementById('case').checked,
+								regExp: document.getElementById('regexp').checked,
+							})
+							editor.replaceAll(document.getElementById('replaceString').value);
+						">Replace All</button>
+					</span>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+	</div>
+</div>		
+
+<div id="editor-div">
+{{ file_content|e }}
+</div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-python.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var editor
+	var resize_editor = function()
+	{
+		var ed = document.getElementById("editor-div");
+		var height = String(document.getElementById("html").getBoundingClientRect().bottom - ed.getBoundingClientRect().top - 50) + "px";
+		ed.style.height = height;
+	}
+	var isSaved = false;
+	var saved = function(state)
+	{
+		if (state & !isSaved)
+		{
+			isSaved = true;
+			document.getElementById("save").classList.remove("btn-default");
+			document.getElementById("save").classList.add("btn-success");
+		}
+		if (isSaved & !state)
+		{
+			isSaved = false;
+			document.getElementById("save").classList.remove("btn-success");
+			document.getElementById("save").classList.add("btn-default");
+		}
+	}
+	$(document).ready(function(){
+		resize_editor();
+		editor = ace.edit("editor-div");
+		editor.setTheme("ace/theme/twilight");
+		editor.getSession().setUseSoftTabs(false);
+		editor.setTheme("ace/theme/tomorrow_night");
+		editor.getSession().setMode("ace/mode/python");
+		$.get("/edit/{{ effect }}/load/", function(data){
+			editor.setValue(data);
+			editor.gotoLine(0);
+			$.get('/edit/{{ effect }}/exist/', function(data){
+				if (data == '1') saved(true);
+			});
+		})
+		editor.getSession().on('change', function(e) {
+			saved(false);
+		});
+		{% if not logedin %}editor.setReadOnly(true);{% endif %}
+		getRunning();
+	});
+	$(window).resize(function() {
+		resize_editor();
+		editor.resize();
+	});
+	$('.panel').on('hidden.bs.collapse', function (e) {
+    		resize_editor();
+		editor.resize();
+	})
+	$('.panel').on('shown.bs.collapse', function (e) {
+    		resize_editor();
+		editor.resize();
+	}) 
+
+	var getRunning = function()
+	{
+		$.getJSON($SCRIPT_ROOT + '/running/', 
+		function(data){
+			if ((data.running == true) && (data.name == "{{ effect }}") && data.form)
+			{
+				$("#effect-config-form").html(data.form);
+				$("#config-button").removeClass("disabled");
+			}
+			else
+			{
+				$("#config-button").addClass("disabled");
+				if ($("#effect-config").hasClass("in"))
+					$("#effect-config").collapse("hide");
+				$("#effect-config-form").html("");
+			}
+		});
+	}
+</script>
+{% endblock %}

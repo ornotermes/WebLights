@@ -1,0 +1,107 @@
+/* Color palette: http://paletton.com/#uid=32+0u0k1tpI00++06Np5zhcaPav */
+
+html,
+body
+{
+	height:				100%;
+	margin:				0;
+	padding:			0;
+}
+body
+{
+	font-family:			'Kelly Slab', serif;
+}
+
+#wrap
+{
+	min-height:			100%;
+	position:			relative;
+}
+.navbar
+{
+	margin-bottom:			0px;		
+}
+.navbar-brand
+{
+	padding-top:			0px;
+}
+.navbar-nav>li>a
+{
+line-height:				35px;
+vertical-align:				middle;
+}
+.navbar-form
+{
+	margin-bottom:			16px;
+	margin-top:			16px;
+}
+
+#content
+{
+	height:				inherit;
+	padding:			10px;
+	padding-bottom:			50px;
+}
+
+#editor-div
+{
+	width:				100%;
+	height:				200px;
+	font-size:			16px;
+}
+.edit-menu
+{
+	padding-bottom:			4px;
+}
+.edit-menu .effect-title
+{
+	display:			inline-block;
+	font-size:			20px;
+	line-height:			20px;
+	margin:				0;
+	padding:			0 10px;
+	color:				#777
+}
+.edit-menu .btn-group
+{
+	display:			inline-block;
+}
+
+.display
+{
+	display:			block;
+	margin:				auto;
+	border:				8px solid #777;
+	border-radius:			8px;
+}
+
+.space
+{
+	margin-bottom:		10px
+}
+
+.form-slider-value
+{
+	margin-bottom:		0;
+	margin-top:			8px;
+	margin-left:		10px;
+}
+
+div.fa
+{
+	padding-bottom: 	15px;
+}
+
+footer
+{
+	width:				100%;
+	/* Set the fixed height of the footer here */
+	height:				40px;
+	background-color:		#f5f5f5;
+	text-align:			center;
+	vertical-align:			middle;
+	line-height:			40px;
+	margin-top:			10px;
+	position:			absolute;
+	bottom:				0px;
+}

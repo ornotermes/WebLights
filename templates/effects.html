@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% set title = "Effects" %}
+{% set active_page = "effects" %}
+
+{% block content %}
+
+<div class="panel panel-default collapse" id="running-effect">
+	<div class="panel-heading">Running effect</div>
+	<div class="panel-body">
+			<div class="input-group space">
+				<span class="input-group-addon form-control" id="running-effect-name"></span>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#effect-config" id="config-button">
+						<span style="padding: 0 24px" class="fa fa-wrench fa-lg"></span>
+					</button>
+					<button type="button" class="btn btn-danger{% if not logedin %} disabled{% endif %}" onclick="
+						$.get('/stop/', function(data){getRunning()});
+					">
+						<span class="fa fa-stop fa-lg"></span>
+					</button>
+				</span>
+			</div>
+			<div id="effect-config" class="collapse">
+				<div id="effect-config-form"></div>
+				<div class="btn-group pull-right" role="group" aria-label="...">
+					<button type="button" class="btn btn-info{% if not logedin %} disabled{% endif %}" onclick="
+						$.get( $SCRIPT_ROOT + '/config/save/' );
+					"><span style="padding: 0 24px" class="fa fa-save fa-lg"></span></button>
+					<button type="button" class="btn btn-warning{% if not logedin %} disabled{% endif %}" onclick="
+						$.get( $SCRIPT_ROOT + '/config/delete/' );
+					"><span class="fa fa-undo fa-lg"></span></button>
+				</div>
+			</div>
+	</div>
+</div>
+<form method="post">
+	<div class="panel panel-default" id="effects">
+		<div class="panel-heading">Effects</div>
+		<div class="panel-body">
+			{% for effect in effects %}
+				<div class="input-group space">
+					<span class="input-group-addon form-control">{{ effect|e }}</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-success{% if not logedin %} disabled{% endif %}" onclick="
+							$.get('/run/{{ effect }}', function(){
+								getRunning();
+
+							});
+						"><span class="fa fa-play fa-lg" style="padding: 0 24px"></span></button>
+						<button type="submit" class="btn btn-warning" name="edit" value="{{ effect|e }}"><span class="fa fa-edit fa-lg"></span></button>
+					</span>
+				</div>
+			{% endfor %}
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Effect" id="effect">
+					<span class="input-group-btn">
+						<button class="btn btn-warning" type="button" name="create" value="True" onclick="
+							window.location.href = '/edit/' + document.getElementById('effect').value;
+						"><span class="fa fa-edit fa-lg"></span></button>
+					</span>
+				</div>
+		</div>
+	</div>
+</form>
+<script>
+	var getRunning = function()
+	{
+		$.getJSON($SCRIPT_ROOT + '/running/', 
+		function(data) {
+			if (data.running == true)
+				{
+					$("#running-effect-name").text(data.name);
+					$("#running-effect").collapse("show");
+					if (data.form)
+					{
+						$("#effect-config-form").html(data.form);
+						$("#config-button").removeClass("disabled");
+					}
+					else
+					{
+						$("#config-button").addClass("disabled");
+						if ($("#effect-config").hasClass("in"))
+							$("#effect-config").collapse("hide");
+					}
+				}
+				else
+				{
+					if ($("#running-effect").hasClass("in"))
+						$("#running-effect").collapse("hide");
+				}
+				
+			});
+	}
+	getRunning();
+</script>
+{% endblock %}

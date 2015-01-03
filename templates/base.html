@@ -1,0 +1,77 @@
+<!doctype html>
+<html id="html">
+<head>
+	{% block head %}
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Kelly+Slab' rel='stylesheet' type='text/css'>
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">-->
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">-->
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/slate/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/seiyria/bootstrap-slider/6cad6aa904ba92f352baef46e9b10e6e1a93f125/dist/css/bootstrap-slider.min.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/default.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.rawgit.com/seiyria/bootstrap-slider/6cad6aa904ba92f352baef46e9b10e6e1a93f125/dist/bootstrap-slider.min.js"></script>
+	
+	<script type=text/javascript>
+		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	</script>
+	
+	{% if title %}
+	<title>{{ title }} - Lights!</title>
+	{% else %}
+	<title>Lights!</title>
+	{% endif %}
+	
+	{% endblock %}
+</head>
+<body lang="en">
+<div id="wrap">
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/"><img src="/static/img/ws2812b-64.png" alt="Start"></a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			{% set nav_bar = [
+				("/effects/", "effects", "Effects"),
+				("/login/", "login", "Login"),
+				("/about/", "about", "About"),
+			] -%}
+			{% set active_page = active_page|default('index') -%}
+
+			<ul class="nav navbar-nav">
+				{% for href, id, caption in nav_bar %}
+				<li{% if id == active_page %} class="active"{% endif%}>
+					<a href="{{ href|e }}">{{ caption|e }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div id="content">
+	{% block content %}{% endblock %}
+</div>
+
+<footer id="footer" class="footer">
+	&copy;2014, 2015 Rikard Lindström
+</footer>
+
+</div>
+
+</body>
+</html>

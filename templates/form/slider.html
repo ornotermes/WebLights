@@ -1,0 +1,18 @@
+<div class="form-group">
+	<label for="form-{{ var }}" class="col-sm-2 control-label">{{ label }}</label>
+	<div class="col-sm-10">
+		<input id="form-{{ var }}" type="text" data-slider-min="{{ min }}" data-slider-max="{{ max }}" data-slider-step="{{ step }}" data-slider-value="0.0">
+		<label for="form-{{ var }}" class="form-slider-value" id="form-value-{{ var }}"></label>
+	</div>
+</div>
+<script>
+	$.get( $SCRIPT_ROOT + '/config/get/', function(data){
+		$("#form-{{ var }}").attr("data-slider-value", {{ start }})
+		$("#form-value-{{ var }}").text({{ start }})
+		$("#form-{{ var }}").slider({tooltip: 'hide'});
+		$("#form-{{ var }}").on("slide", function(slideEvt) {
+			$.get( $SCRIPT_ROOT + '/config/set/{{ var }}/float/' + slideEvt.value + '/');
+			$("#form-value-{{ var }}").text(slideEvt.value)
+		});
+	});
+</script>

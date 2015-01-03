@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set title = "Login" %}
+{% set active_page = "login" %}
+
+{% block content %}
+{% if logedin %}
+<div class="panel panel-info">
+	<div class="panel-body">
+		<form action="/logout/">
+			<div class="input-group">
+				<p>You are loged in.</p>
+				<button class="btn btn-default" type="submit" name="logout" value="True"><i class="fa fa-lock fa-lg"></i> Logout</button>
+			</div>
+		</form>
+	</div>
+{% else %}
+<div class="panel panel-info">
+	<div class="panel-body">
+		<form method="post">
+			{% if loginfail %}
+			<div class="alert alert-danger" role="alert">Wrong password!</div>
+			{% endif %}
+			<div class="input-group">
+				<input type="password" class="form-control" name="password" placeholder="Password">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit" value="True"><i class="fa fa-key fa-lg"></i> Login</button>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
