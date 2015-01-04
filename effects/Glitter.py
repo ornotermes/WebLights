@@ -36,6 +36,6 @@ def run():
 		for i in range(0, strip.length):
 			if(stop): return
 			r = round((random() * config["density"]), 0)
-			strip.HSV(config["hue"], config["saturation"], config["value"] * r)
+			strip.hsv(config["hue"], config["saturation"], config["value"] * r)
 
-		strip.Show()
+		strip.show()

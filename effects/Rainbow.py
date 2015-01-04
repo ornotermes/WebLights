@@ -24,6 +24,6 @@ def run():
 				hue += (1.0/strip.length)*(i)
 				if hue > 1.0:
 					hue -= 1
-				strip.HSV(hue, 1, 1)
+				strip.hsv(hue, 1, 1)
 
-			strip.Show()
+			strip.show()

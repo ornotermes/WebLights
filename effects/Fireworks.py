@@ -29,35 +29,35 @@ def run():
 			for i in range(0, strip.length):
 				if(stop): return
 				if (i > (start-r)) & (i < (start+r)):
-					strip.HSV(color, 1.0, 1.0)
+					strip.hsv(color, 1.0, 1.0)
 				else:
-					strip.RGB(0.0, 0.0, 0.0)
-			strip.Show()
+					strip.rgb(0.0, 0.0, 0.0)
+			strip.show()
 		
 		for b in range(100, 0, -1):
 			for i in range(0, strip.length):
 				if(stop): return
 				if (i > (start-r)) & (i < (start+r)):
 					if sparkle & int(round(random()*0.6)):
-						strip.HSV(1.0, sparkleColor, 1.0)
+						strip.hsv(1.0, sparkleColor, 1.0)
 					else:
-						strip.HSV(color, 1.0, b/100.0)
+						strip.hsv(color, 1.0, b/100.0)
 				else:
-					strip.RGB(0.0, 0.0, 0.0)
-			strip.Show()
+					strip.rgb(0.0, 0.0, 0.0)
+			strip.show()
 			
 		for b in range(83, 0, -1):
 			for i in range(0, strip.length):
 				if(stop): return
 				if (i > (start-r)) & (i < (start+r)):
 					if sparkle & int(round(random()*(0.6*(b/200.0+0.5)))):
-						strip.HSV(1.0, sparkleColor, 1.0)
+						strip.hsv(1.0, sparkleColor, 1.0)
 					else:
-						strip.HSV(color, 0.0, 0.0)
+						strip.hsv(color, 0.0, 0.0)
 				else:
-					strip.RGB(0.0, 0.0, 0.0)
-			strip.Show()
+					strip.rgb(0.0, 0.0, 0.0)
+			strip.show()
 			
 		for i in range(0, strip.length):
-			strip.RGB(0.0, 0.0, 0.0)
-		strip.Show()
+			strip.rgb(0.0, 0.0, 0.0)
+		strip.show()

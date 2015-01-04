@@ -34,11 +34,11 @@ def run():
 				for n in range(0, strip.length):
 					if stop: return
 					v = abs( (d*strip.length) - m)
-					if( n == v ) : strip.HSV( config["hue"], config["saturation"], config["value"] * 1.0 )
-					if( n == v-1 and v < strip.length-1) : strip.HSV( config["hue"], config["saturation"], config["value"] * 0.5 )
-					if( n == v-2 and v < strip.length-2) : strip.HSV( config["hue"], config["saturation"], config["value"] * 0.25 )
-					if( n == v-3 and v < strip.length-3) : strip.HSV( config["hue"], config["saturation"], config["value"] * 0.125 )
-					if( n == v-4 and v < strip.length-4) : strip.HSV( config["hue"], config["saturation"], config["value"] * 0.0625 )
-					else : strip.HSV( config["hue"], config["saturation"], 0.0 )
+					if( n == v ) : strip.hsv( config["hue"], config["saturation"], config["value"] * 1.0 )
+					if( n == v-1 and v < strip.length-1) : strip.hsv( config["hue"], config["saturation"], config["value"] * 0.5 )
+					if( n == v-2 and v < strip.length-2) : strip.hsv( config["hue"], config["saturation"], config["value"] * 0.25 )
+					if( n == v-3 and v < strip.length-3) : strip.hsv( config["hue"], config["saturation"], config["value"] * 0.125 )
+					if( n == v-4 and v < strip.length-4) : strip.hsv( config["hue"], config["saturation"], config["value"] * 0.0625 )
+					else : strip.hsv( config["hue"], config["saturation"], 0.0 )
 
-				strip.Show()
+				strip.show()

@@ -33,11 +33,11 @@ def run():
 	while(1):
 		for i in range(0, strip.length):
 			if(stop): return
-			strip.HSV(config["hue"], config["saturation"], config["value"])
-		strip.Show()
+			strip.hsv(config["hue"], config["saturation"], config["value"])
+		strip.show()
 	
 		for i in range(0, strip.length):
 			if(stop): return
-			strip.HSV(0.0, 0.0, 0.0)
-		strip.Show()
+			strip.hsv(0.0, 0.0, 0.0)
+		strip.show()
 		time.sleep(config["delay"])

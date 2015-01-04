@@ -34,7 +34,7 @@ def run():
 		for i in range(0, strip.length):
 			if(stop): return
 			r = random()
-			strip.HSV(config["hue"], config["saturation"], config["value"] * r)
+			strip.hsv(config["hue"], config["saturation"], config["value"] * r)
 
-		strip.Show()
+		strip.show()
 		time.sleep(0.05)

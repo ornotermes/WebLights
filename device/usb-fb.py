@@ -80,32 +80,32 @@ class strip:
 				else:
 					instance -= 1
 					
-	def Add(self, command):
+	def add(self, command):
 		if(len(self.txBuffer) + len(command) > self.txSize-1):
-			self.Send()
+			self.send()
 		self.txBuffer += command
 	
-	def Send(self):
+	def send(self):
 		self.txep.write(self.txBuffer.ljust(self.txSize, "x"))
 		self.txBuffer = ""
 		
-	def Clear(self):
-		self.Add("c")
+	def clear(self):
+		self.add("c")
 	
-	def GoTo(self, pos):
+	def goto(self, pos):
 		if pos < self.count:
-			self.Add("g" + chr(pos))
+			self.add("g" + chr(pos))
 	
-	def Set(self, red, green, blue):
-		self.Add("s" + chr(min(red,255))  + chr(min(green,255))  + chr(min(blue,255)))
+	def set(self, red, green, blue):
+		self.add("s" + chr(min(red,255))  + chr(min(green,255))  + chr(min(blue,255)))
 		
-	def Show(self):
-		self.Add("t")
-		self.Send()
+	def show(self):
+		self.add("t")
+		self.send()
 	
-	def RGB(self, red, green, blue):
-		self.Set(int(red*255), int(green*255), int(blue*255))
+	def rgb(self, red, green, blue):
+		self.set(int(red*255), int(green*255), int(blue*255))
 		
-	def HSV(self, hue, sat, val):
+	def hsv(self, hue, sat, val):
 		rgb = colorsys.hsv_to_rgb(hue, sat, val)
-		self.RGB(rgb[0], rgb[1], rgb[2])
+		self.rgb(rgb[0], rgb[1], rgb[2])
