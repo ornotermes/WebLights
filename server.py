@@ -71,16 +71,7 @@ def favicon():
 
 @webApp.route("/")
 def index():
-	return  render_template("index.html")
-	'''vid = hex(ledStrip.VID),
-	pid = hex(ledStrip.PID),
-	manu = ledStrip.device.manufacturer,
-	prod = ledStrip.device.product,
-	serial = ledStrip.device.serial_number,
-	iface = ledStrip.IF,
-	rxep = ledStrip.RXEP,
-	txep = ledStrip.TXEP,
-	buff = ledStrip.txSize)'''
+	return  render_template("index.html", stripConfig = strip.config )
 		
 @webApp.route("/robots.txt")
 def robots():
