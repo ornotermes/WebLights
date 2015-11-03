@@ -18,7 +18,6 @@
 
 import ConfigParser
 from flask import *
-from strip import *
 import threading
 import os.path
 import sys, os, time
@@ -55,7 +54,7 @@ class form:
 if config.has_option("session", "secretkey"):
 	webApp.secret_key = config.get("session", "secretkey")
 
-ledStrip = strip()
+ledStrip = ""
 
 def isLogedIn():
 	return ('login' in session)
