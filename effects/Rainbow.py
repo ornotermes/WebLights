@@ -15,15 +15,31 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+def show():
+	form.start()
+	form.slider("delay", "Delay", 0.0, 0.1, 0.001, form.get("delay"))
+	form.check("reverse", "Reverse", form.get("reverse"))
+	form.finnish()
+
+def init():
+	config["delay"] = 0.0
+	config["reverse"] = False
+
 def run():
 	while True:
 		for l in range(0, strip.length):
+			
+			if (config["reverse"]):
+				lhue = (1.0/strip.length)*(strip.length-l)
+			else:
+				lhue = (1.0/strip.length)*(l)
+				
 			for i in range(0, strip.length):
 				if stop: return
-				hue = (1.0/strip.length)*(l)
-				hue += (1.0/strip.length)*(i)
+				hue = lhue + (1.0/strip.length)*(i)
 				if hue > 1.0:
 					hue -= 1
 				strip.hsv(hue, 1, 1)
 
 			strip.show()
+			time.sleep(config["delay"])
