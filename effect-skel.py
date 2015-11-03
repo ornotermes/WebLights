@@ -14,7 +14,7 @@ def run():
 	while True:
 		for i in range(0, strip.length):
 			if(stop): return
-			strip.HSV(config["hue"], config["saturation"], config["value"])
+			strip.hsv(config["hue"], config["saturation"], config["value"])
 
-		strip.Show()
+		strip.show()
 		time.sleep(0.05)
