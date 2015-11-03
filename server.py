@@ -50,6 +50,9 @@ class form:
 	def slider(self, var, label, min, max, step, start):
 		self.source += render_template("form/slider.html", var = var, label = label, min = min, max = max, step = step, start = start) + "\n"
 	
+	def check(self, var, label, start):
+		self.source += render_template("form/check.html", var = var, label = label, start = start) + "\n"
+	
 
 if config.has_option("session", "secretkey"):
 	webApp.secret_key = config.get("session", "secretkey")
@@ -116,12 +119,12 @@ def configSet(name = None, typeName = None, value = None):
 	global effect_module
 	global effect_thread
 	if isLogedIn() & bool(effect_module) & bool(name):
-		if typeName == "bool": effect_module.config[name] = bool(value)
+		if typeName == "bool": effect_module.config[name] = (value.lower() in ("true", "1", "t", "y", "yes"))
 		if typeName == "int": effect_module.config[name] = int(value)
 		if typeName == "float": effect_module.config[name] = float(value)
 		if typeName == "str": effect_module.config[name] = str(value)
 		
-		print name, value, effect_module.config, typeName, (typeName == u"float")
+		print name, typeName, value, effect_module.config
 		return "OK"
 	return "FAIL"
 		
