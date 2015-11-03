@@ -35,7 +35,7 @@ def run():
 		for d in [0, 1]:
 			for m in range(0, strip.length):
 				values = [config["decay"]*x for x in values]
-				v = abs( (d*strip.length) - m)-1
+				v = abs( (d*(strip.length-1)) - m)
 				values[v] = config["value"]
 				for n in range(0, strip.length):
 					if stop: return
